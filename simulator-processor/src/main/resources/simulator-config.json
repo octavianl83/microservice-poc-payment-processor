@@ -1,0 +1,14 @@
+{
+    "EntryPoints": {
+        "volpay.sanctions.send": "sim-sanctions-receiver.grl",
+        "volpay.accountlookup.send": "sim-accountlookup-receiver.grl",
+        "volpay.fundscontrol.send": "sim-fundscontrol-receiver.grl",
+        "volpay.rtp-accountposting.send": "sim-rtp-accountposting-receiver.grl"
+    },
+    "ExitPoints": {
+        "SanctionsRequestInitiated": "volpay.sanctions.receive",
+        "AccountLookupRequestInitiated" : "volpay.accountlookup.receive",
+        "FundsControlRequestInitiated" : "volpay.fundscontrol.receive",
+        "RTPAccountPostingRequestInitiated" : "volpay.rtp-accountposting.receive"
+    }
+}
