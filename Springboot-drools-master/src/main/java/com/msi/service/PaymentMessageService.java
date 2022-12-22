@@ -25,7 +25,7 @@ public class PaymentMessageService {
 
 	public PaymentMessage processPaymentMessage(ConsumerRecord<Integer, String> consumerRecord) throws Exception {
 		PaymentMessage paymentMessage = objectMapper.readValue(consumerRecord.value(), PaymentMessage.class);
-		log.info("payment message: {}", paymentMessage);
+		log.debug("payment message: {}", paymentMessage);
 		//get the stateful session
 
 //		KieSession kieSession = kieContainer.newKieSession("rulesSession");

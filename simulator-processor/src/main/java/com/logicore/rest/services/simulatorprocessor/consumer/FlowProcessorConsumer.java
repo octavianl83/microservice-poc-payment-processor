@@ -17,11 +17,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Component
 @Slf4j
@@ -36,29 +34,29 @@ public class FlowProcessorConsumer {
 
     private String ruleengineTopic = "ruleengine";
 
+    private AtomicLong counter = new AtomicLong(1);
+
     @Autowired
     ObjectMapper objectMapper;
 
     @KafkaListener(topics = {"volpay.sanctions.send", "volpay.accountlookup.send", "volpay.fundscontrol.send", "volpay.rtp-accountposting.send"})
     public void onMessage(ConsumerRecord<Integer, String> customerRecord) throws IOException {
-        log.info("ConsumerRecord : {}", customerRecord);
+        log.debug("ConsumerRecord : {}", customerRecord);
         PaymentMessage paymentMessage = paymentMessageService.processPaymentMessage(customerRecord);
 
         FlowAction flowAction = new FlowAction(paymentMessage, customerRecord.topic());
         Map<String, Object> actionMap = flowAction.process();
 
+        log.debug("Kafka send payload : {} and topic {}", actionMap.get("message"), (String) actionMap.get("topic"));
         kafkaService.kafkaSend((PaymentMessage) actionMap.get("message"), (String) actionMap.get("topic"));
 
     }
 
     @KafkaListener(topics = {"volpay.rtp-transmit.send"})
     public void onMessageRest(ConsumerRecord<Integer, String> customerRecord) throws IOException, URISyntaxException {
-        log.info("ConsumerRecord : {}", customerRecord);
+        log.debug("ConsumerRecord : {}", customerRecord);
         PaymentMessage paymentMessage = paymentMessageService.processPaymentMessage(customerRecord);
-
-        URI uri = new URI("http://localhost:" + "7070" + "/paymentSent/");
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<?> result = restTemplate.postForEntity(uri, paymentMessage, PaymentMessage.class);
-
+        counter.getAndIncrement();
+        log.info("Number of kafka messages received: {} ", String.valueOf(counter));
     }
 }

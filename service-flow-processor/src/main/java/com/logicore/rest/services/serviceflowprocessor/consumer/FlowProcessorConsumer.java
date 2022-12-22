@@ -28,7 +28,7 @@ public class FlowProcessorConsumer {
 
     @KafkaListener(topics = {"volpay.instruction.receive", "volpay.sanctions.receive", "volpay.accountlookup.receive", "volpay.fundscontrol.receive", "volpay.rtp-accountposting.receive", "volpay.rtp-transmit-ack.receive"})
     public void onMessage(ConsumerRecord<Integer, String> customerRecord) throws IOException {
-        log.info("ConsumerRecord : {}", customerRecord);
+        log.debug("ConsumerRecord : {}", customerRecord);
         PaymentMessage paymentMessage = paymentMessageService.processPaymentMessage(customerRecord);
 
         FlowAction flowAction = new FlowAction(paymentMessage, customerRecord.topic());

@@ -54,7 +54,7 @@ public class Processor {
     }
 
     public Map<String, Object> processLogic() {
-        log.info("FlowProcessor: Enter into main process method");
+        log.debug("FlowProcessor: Enter into main process method");
         //First we check if there are tasks to be processed
         Map<String, String> task = getTask();
         String ruleNameExit = getExitPoint();
@@ -66,17 +66,17 @@ public class Processor {
 
         if (task != null && !externalProcesed) {
             //Process the task
-            log.info("FlowProcessor: Enter into task processor {}", task);
+            log.debug("FlowProcessor: Enter into task processor {}", task);
             taskProcessor(task);
             actionMap.put("topic", "ruleengine");
         } else if (ruleNameExit != null && !externalProcesed) {
             //Process the ExitPoint
-            log.info("FlowProcessor: Enter into exitPoint processor {}", ruleNameExit);
+            log.debug("FlowProcessor: Enter into exitPoint processor {}", ruleNameExit);
             ruleExitProcessor(ruleNameExit);
             actionMap.put("topic", paymentMessage.getMessageProcessStatus().getTopic());
         } else if (ruleNameEntry != null) {
             //Process the EntryPoint
-            log.info("FlowProcessor: Enter into entryPoint processor {}", ruleNameEntry);
+            log.debug("FlowProcessor: Enter into entryPoint processor {}", ruleNameEntry);
             ruleEntryProcessor(ruleNameEntry);
             actionMap.put("topic", "ruleengine");
         }

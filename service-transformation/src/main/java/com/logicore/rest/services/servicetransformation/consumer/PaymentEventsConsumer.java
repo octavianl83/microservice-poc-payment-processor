@@ -27,7 +27,7 @@ public class PaymentEventsConsumer {
     @KafkaListener(topics = "${topics.listen}")
     @SendTo()
     public String onMessage(ConsumerRecord<String, String> customerRecord) throws Exception {
-        log.info("Receive ConsumerRecord : {}", customerRecord);
+        log.debug("Receive ConsumerRecord : {}", customerRecord);
 
         PaymentMessage paymentMessage = objectMapper.readValue(customerRecord.value(), PaymentMessage.class);
 //        Product product = ruleEngineProxy.getDiscount("gold", 32);

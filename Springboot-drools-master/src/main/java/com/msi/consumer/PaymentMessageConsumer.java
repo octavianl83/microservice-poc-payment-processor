@@ -28,7 +28,7 @@ public class PaymentMessageConsumer {
     @KafkaListener(topics = {"ruleengine"})
     public void onMessage(ConsumerRecord<Integer, String> customerRecord) throws Exception {
 
-        log.info("ConsumerRecord : {}", customerRecord);
+        log.debug("ConsumerRecord : {}", customerRecord);
 
         PaymentMessage paymentMessage = paymentMessageService.processPaymentMessage(customerRecord);
 

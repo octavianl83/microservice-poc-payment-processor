@@ -17,13 +17,13 @@ public class PaymentMessageService {
 
     public PaymentMessage processPaymentMessage(ConsumerRecord<Integer, String> consumerRecord) throws JsonProcessingException {
         PaymentMessage paymentMessage = objectMapper.readValue(consumerRecord.value(), PaymentMessage.class);
-        log.info("payment message: {}", paymentMessage);
+        log.debug("payment message: {}", paymentMessage);
         save(paymentMessage);
         return paymentMessage;
     }
 
     private void save(PaymentMessage paymentMessage) {
-        log.info("Succesfully persisted the payment message {}", paymentMessage);
+        log.debug("Succesfully persisted the payment message {}", paymentMessage);
 
     }
 
