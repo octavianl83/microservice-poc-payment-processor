@@ -32,8 +32,7 @@ public class PaymentMessageConsumer {
 
         PaymentMessage paymentMessage = paymentMessageService.processPaymentMessage(customerRecord);
 
-        if (paymentMessage.getMessageProcessStatus().getStatus().equals("SIMULATOR OK") ||
-            paymentMessage.getMessageProcessStatus().getStatus().equals("RtpAccountPostingReceived")) {
+        if (paymentMessage.getMessageProcessStatus().getStatus().equals("SIMULATOR OK")) {
 
         } else {
             kafkaService.kafkaSend(paymentMessage, paymentMessage.getMessageProcessStatus().getTopic());

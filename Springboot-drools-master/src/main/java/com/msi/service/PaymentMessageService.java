@@ -68,6 +68,8 @@ public class PaymentMessageService {
 			paymentMessage.getMessageProcessStatus().setStatus("RTPAccountPostingRequestInitiated");
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("RTPAccountPostingRequestInitiated")) {
 			paymentMessage.getMessageProcessStatus().setStatus("RtpAccountPostingReceived");
+		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("RtpAccountPostingReceived")) {
+			paymentMessage.getMessageProcessStatus().setStatus("RTPTransmitInitiated");
 		}
 		return paymentMessage;
 	}
