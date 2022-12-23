@@ -34,7 +34,7 @@ public class FlowProcessorConsumer {
 
     private String ruleengineTopic = "ruleengine";
 
-    private AtomicLong counter = new AtomicLong(1);
+    private AtomicLong counter = new AtomicLong(0);
 
     @Autowired
     ObjectMapper objectMapper;
