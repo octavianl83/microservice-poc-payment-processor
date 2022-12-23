@@ -10,7 +10,10 @@ public class FlowAction {
 
     PaymentMessage paymentMessage;
     String topic;
-    public FlowAction(PaymentMessage paymentMessage, String topic) {
+    private Selector selector;
+
+    public FlowAction(Selector selector, PaymentMessage paymentMessage, String topic) {
+        this.selector = selector;
         this.paymentMessage = paymentMessage;
         this.topic = topic;
     }
@@ -19,7 +22,6 @@ public class FlowAction {
         String tenantId = paymentMessage.getTenant().getTenantId();
 
         //Load flow specific to the tennantId
-        Selector selector = new Selector(tenantId);
         HashMap<String, Object> flowHashMap = selector.loadFlow();
 
         //Map flow into an object

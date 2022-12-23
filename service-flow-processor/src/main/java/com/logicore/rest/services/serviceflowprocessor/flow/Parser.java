@@ -28,7 +28,7 @@ public class Parser {
 
 
     public static void main(String[] args) throws IOException {
-        Selector selector = new Selector("tenant1");
+        Selector selector = new LocalSelector("tenant1");
         HashMap<String, Object> flow = selector.loadFlow();
         Parser parser = new Parser(flow);
         log.info("Parser");
