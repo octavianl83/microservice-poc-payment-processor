@@ -25,9 +25,9 @@ public class DBSelector implements Selector {
     @Cacheable(value = "flows")
     @Override
     public HashMap<String, Object> loadFlow(String tenantId) throws IOException {
-        log.info("Loading flow config from DB for tenant: " + tenantId);
         ProcessConfig tenantConfig = processConfigMgmtProxy.getTenantConfig(tenantId);
         if (tenantConfig != null) {
+            log.info("Loading " + tenantId + " config flow from DB version " + tenantConfig.getVersion());
             ObjectMapper mapper = new ObjectMapper();
             HashMap<String, Object> hashMap = mapper.readValue(tenantConfig.getConfig(), HashMap.class);
             return hashMap;

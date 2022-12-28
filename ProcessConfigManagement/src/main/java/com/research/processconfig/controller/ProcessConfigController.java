@@ -2,6 +2,7 @@ package com.research.processconfig.controller;
 
 import com.research.processconfig.dto.ProcessConfig;
 import com.research.processconfig.service.ProcessConfigService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+@Slf4j
 @RestController
 public class ProcessConfigController {
 
@@ -25,7 +27,9 @@ public class ProcessConfigController {
 
     @GetMapping("/processConfig")
     public ProcessConfig getTenantConfig(@RequestParam String tenantId) {
-        return processConfigService.getTenantConfig(tenantId);
+        ProcessConfig tenantConfig = processConfigService.getTenantConfig(tenantId);
+        log.info("Fetch config for " + tenantConfig.getTenantId() + " version " + tenantConfig.getVersion());
+        return tenantConfig;
     }
 
     @PostMapping("/uploadConfig")
@@ -34,6 +38,7 @@ public class ProcessConfigController {
             String content = new String(file.getBytes());
             ProcessConfig processConfig = ProcessConfig.builder().tenantId(tenantId).config(content).build();
             ProcessConfig savedConfig = processConfigService.save(processConfig);
+            log.info("Updated " + savedConfig.getTenantId() + " config to version " + savedConfig.getVersion());
             return ResponseEntity.status(HttpStatus.OK).body("Successfully updated tenant config to version: " + savedConfig.getVersion());
         } catch (IOException e) {
             throw new RuntimeException(e);
