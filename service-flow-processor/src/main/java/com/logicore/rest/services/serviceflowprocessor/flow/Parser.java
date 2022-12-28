@@ -28,8 +28,8 @@ public class Parser {
 
 
     public static void main(String[] args) throws IOException {
-        Selector selector = new LocalSelector("tenant1");
-        HashMap<String, Object> flow = selector.loadFlow();
+        Selector selector = new LocalSelector();
+        HashMap<String, Object> flow = selector.loadFlow("tenant1");
         Parser parser = new Parser(flow);
         log.info("Parser");
     }

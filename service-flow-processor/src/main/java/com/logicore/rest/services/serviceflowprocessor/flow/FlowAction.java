@@ -22,7 +22,7 @@ public class FlowAction {
         String tenantId = paymentMessage.getTenant().getTenantId();
 
         //Load flow specific to the tennantId
-        HashMap<String, Object> flowHashMap = selector.loadFlow();
+        HashMap<String, Object> flowHashMap = selector.loadFlow(tenantId);
 
         //Map flow into an object
         Parser parser = new Parser(flowHashMap);
