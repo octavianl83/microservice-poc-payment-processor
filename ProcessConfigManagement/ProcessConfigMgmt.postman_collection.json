@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "13ffb23e-fd44-46b7-be10-1965a773191d",
+		"name": "ProcessConfigMgmt",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UploadProcessConfig",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Work/microservice-poc-payment-processor/service-flow-processor/src/main/resources/process-config-tenant2.json"
+						},
+						{
+							"key": "tenantId",
+							"value": "tenant2",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9100/uploadConfig",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"uploadConfig"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DownloadProcessConfig",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9100/downloadConfig?tenantId=tenant2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"downloadConfig"
+					],
+					"query": [
+						{
+							"key": "tenantId",
+							"value": "tenant2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTenantProcessConfig",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9100/processConfig?tenantId=tenant2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"processConfig"
+					],
+					"query": [
+						{
+							"key": "tenantId",
+							"value": "tenant2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
