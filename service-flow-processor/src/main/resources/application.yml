@@ -58,11 +58,11 @@ spring:
 server:
   port: 7200
 
-topics:
-  send: "serviceprocessor2"
-  reply: "serviceprocessor1-reply"
-
 eureka:
   client:
     service-url:
       default-zone: http://localhost:8671/eureka
+
+logging:
+  level:
+    root: INFO

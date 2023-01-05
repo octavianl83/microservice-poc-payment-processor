@@ -6,6 +6,7 @@ import model.payment.PaymentMessage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -27,17 +28,18 @@ public class Processor {
         return ruleName;
     }
 
-    private void ruleEntryProcessor(LinkedHashMap<String, String> ruleNameEntry) throws IOException, InterruptedException {
+    private void ruleEntryProcessor(LinkedHashMap<String, String> ruleNameEntry) throws IOException, InterruptedException, URISyntaxException {
         String jarTransform = ruleNameEntry.get("Transform");
         String endPoint = ruleNameEntry.get("EndPoint");
 
-        paymentMessage = Transform.transformPaymentMessage(jarTransform, paymentMessage);
-
-        paymentMessage.getMessageProcessStatus().setTopic(endPoint);
+        Transform transformEngine = new Transform();
+        paymentMessage = transformEngine.transformPaymentMessage(jarTransform, paymentMessage);
         paymentMessage.getMessageProcessStatus().setActionStatus(ActionStatus.KAFKA);
+        paymentMessage.getMessageProcessStatus().setStatus(ruleNameEntry.get("Status"));
+        paymentMessage.getMessageProcessStatus().setTopic(ruleNameEntry.get("EndPoint"));
     }
 
-    public Map<String, Object> processLogic() throws IOException, InterruptedException {
+    public Map<String, Object> processLogic() throws IOException, InterruptedException, URISyntaxException {
         log.debug("FlowProcessor: Enter into main process method");
         LinkedHashMap<String, String> ruleNameEntry = getEntryPoint();
 
@@ -49,11 +51,12 @@ public class Processor {
             //Process the EntryPoint
             log.debug("FlowProcessor: Enter into entryPoint processor {}", ruleNameEntry);
             ruleEntryProcessor(ruleNameEntry);
-            actionMap.put("topic", "ruleengine");
+
+            String endPoint = ruleNameEntry.get("EndPoint");
+            actionMap.put("topic", endPoint);
         }
         //Set externalProcess on false
-        paymentMessage.getMessageProcessStatus().setExternalProcesed(true);
-
+        paymentMessage.getMessageProcessStatus().setExternalProcesed(false);
 
         actionMap.put("message", paymentMessage);
         return actionMap;

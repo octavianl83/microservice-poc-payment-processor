@@ -14,6 +14,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Map;
 
 @Component
@@ -30,7 +31,7 @@ public class TransformationProcessorConsumer {
     private Selector selector;
 
     @KafkaListener(topics = {"volpay.sanctions.transform", "volpay.rtptransmit.transform", "volpay.fundscontrol.transform"})
-    public void onMessage(ConsumerRecord<Integer, String> customerRecord) throws IOException, InterruptedException {
+    public void onMessage(ConsumerRecord<Integer, String> customerRecord) throws IOException, InterruptedException, URISyntaxException {
         log.debug("ConsumerRecord : {}", customerRecord);
         PaymentMessage paymentMessage = paymentMessageService.transformPaymentMessage(customerRecord);
 

@@ -11,10 +11,10 @@ public class Main {
         String paymentMessageStr = args[0];
 
         PaymentMessage paymentMessage = objectMapper.readValue(paymentMessageStr, PaymentMessage.class);
-        paymentMessage.setFoundsControlTransform("transform-founds-control-jar");
+        paymentMessage.setRtpTransmitTransform("transform-founds-jar");
 
         String paymentMessageToStr = objectMapper.writeValueAsString(paymentMessage);
-        System.out.println(paymentMessageToStr.toString());
+        System.out.println(paymentMessageToStr);
 
     }
 }

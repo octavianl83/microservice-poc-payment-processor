@@ -2,26 +2,26 @@ package com.msi.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.msi.payment.PaymentMessage;
 import lombok.extern.slf4j.Slf4j;
+import model.payment.PaymentMessage;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
+//import org.kie.api.runtime.KieContainer;
+//import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 public class PaymentMessageService {
-	private final KieContainer kieContainer;
+//	private final KieContainer kieContainer;
 
 	@Autowired
 	ObjectMapper objectMapper;
 
-	@Autowired
-	public PaymentMessageService(KieContainer kieContainer) {
-		this.kieContainer = kieContainer;
-	}
+//	@Autowired
+//	public PaymentMessageService(KieContainer kieContainer) {
+//		this.kieContainer = kieContainer;
+//	}
 
 	public PaymentMessage processPaymentMessage(ConsumerRecord<Integer, String> consumerRecord) throws Exception {
 		PaymentMessage paymentMessage = objectMapper.readValue(consumerRecord.value(), PaymentMessage.class);
@@ -53,6 +53,8 @@ public class PaymentMessageService {
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("TransactionValidated")) {
 			paymentMessage.getMessageProcessStatus().setStatus("TransactionDupChecked");
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("TransactionDupChecked")) {
+			paymentMessage.getMessageProcessStatus().setStatus("SanctionsTransform");
+		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("SanctionsTransform")) {
 			paymentMessage.getMessageProcessStatus().setStatus("SanctionsTransformed");
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("SanctionsTransformed")) {
 			paymentMessage.getMessageProcessStatus().setStatus("SanctionsRequestInitiated");
@@ -61,6 +63,8 @@ public class PaymentMessageService {
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("AccountLookupRequestInitiated")) {
 			paymentMessage.getMessageProcessStatus().setStatus("AccountLookupReceived");
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("AccountLookupReceived")) {
+			paymentMessage.getMessageProcessStatus().setStatus("FundsControlTransform");
+		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("FundsControlTransform")) {
 			paymentMessage.getMessageProcessStatus().setStatus("FundsControlTransformed");
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("FundsControlTransformed")) {
 			paymentMessage.getMessageProcessStatus().setStatus("FundsControlRequestInitiated");
@@ -73,9 +77,13 @@ public class PaymentMessageService {
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("RTPAccountPostingRequestInitiated")) {
 			paymentMessage.getMessageProcessStatus().setStatus("RtpAccountPostingReceived");
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("RtpAccountPostingReceived")) {
-			paymentMessage.getMessageProcessStatus().setStatus("RTPTransmitTranformed");
-		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("RTPTransmitTranformed")) {
+			paymentMessage.getMessageProcessStatus().setStatus("RTPTransmitTransform");
+		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("RTPTransmitTransform")) {
+			paymentMessage.getMessageProcessStatus().setStatus("RTPTransmitTransformed");
+		}  else if (paymentMessage.getMessageProcessStatus().getStatus().equals("RTPTransmitTransformed")) {
 			paymentMessage.getMessageProcessStatus().setStatus("RTPTransmitInitiated");
+		} else {
+			paymentMessage.getMessageProcessStatus().setRuleName("NOT AVIALABLE");
 		}
 		return paymentMessage;
 	}

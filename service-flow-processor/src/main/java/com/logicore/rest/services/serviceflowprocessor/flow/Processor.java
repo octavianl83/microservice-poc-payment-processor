@@ -71,12 +71,12 @@ public class Processor {
             actionMap.put("topic", "ruleengine");
         } else if (ruleNameExit != null && !externalProcesed) {
             //Process the ExitPoint
-            log.debug("FlowProcessor: Enter into exitPoint processor {}", ruleNameExit);
+            log.info("FlowProcessor: Enter into exitPoint processor {}", ruleNameExit);
             ruleExitProcessor(ruleNameExit);
             actionMap.put("topic", paymentMessage.getMessageProcessStatus().getTopic());
         } else if (ruleNameEntry != null) {
             //Process the EntryPoint
-            log.debug("FlowProcessor: Enter into entryPoint processor {}", ruleNameEntry);
+            log.info("FlowProcessor: Enter into entryPoint processor {}", ruleNameEntry);
             ruleEntryProcessor(ruleNameEntry);
             actionMap.put("topic", "ruleengine");
         }

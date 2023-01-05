@@ -21,9 +21,6 @@ import java.util.List;
 @Slf4j
 public class KafkaService {
 
-    @Value("${topics.send}")
-    private String SEND_TOPICS;
-
     @Autowired
     ObjectMapper objectMapper;
 
@@ -58,7 +55,7 @@ public class KafkaService {
     }
 
     public void handleSuccess(Integer key, String value, SendResult<Integer, String> result, String topic) {
-        log.debug("Message sent successfully with key {} and value {} and topic {} partition is {}", key, value, topic, result.getRecordMetadata().partition());
+        log.info("Message sent successfully with key {} and value {} and topic {} partition is {}", key, value, topic, result.getRecordMetadata().partition());
     }
 
     public void handleFailure(Throwable ex) {

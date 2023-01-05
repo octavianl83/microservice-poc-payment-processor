@@ -24,8 +24,8 @@ public class FlowProcessorConsumer {
     @Autowired
     private PaymentMessageService paymentMessageService;
     @Autowired
-//    @Qualifier("localFlow")
-    @Qualifier("DBFlow")
+    @Qualifier("localFlow")
+//    @Qualifier("DBFlow")
     private Selector selector;
 
     private String ruleengineTopic = "ruleengine";

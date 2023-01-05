@@ -6,12 +6,12 @@ spring:
   kafka:
     consumer:
       bootstrap-servers: localhost:9092, localhost:9093, localhost:9094
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      group-id: service-listener-group4
+      group-id: service-listener-group1
     producer:
       bootstrap-servers: localhost:9092, localhost:9093, localhost:9094
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
   datasource:
     url: jdbc:h2:mem:testdb
@@ -33,7 +33,7 @@ spring:
       bootstrap-servers: localhost:9092, localhost:9093, localhost:9094
       key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      group-id: service-listener-group4
+      group-id: service-listener-group1
 
 ---
 spring:
@@ -45,7 +45,7 @@ spring:
       bootstrap-servers: localhost:9092, localhost:9093, localhost:9094
       key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      group-id: service-listener-group4
+      group-id: service-listener-group1
 
 ---
 
@@ -58,12 +58,11 @@ spring:
 server:
   port: 7500
 
-topics:
-  send: "serviceprocessor5"
-  listen: "serviceprocessor4"
-  reply: "serviceprocessor3-reply"
-
 eureka:
   client:
     service-url:
       default-zone: http://localhost:8671/eureka
+
+logging:
+  level:
+    root: INFO

@@ -2,8 +2,8 @@ package com.msi.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.msi.payment.PaymentMessage;
 import lombok.extern.slf4j.Slf4j;
+import model.payment.PaymentMessage;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.header.Header;
 import org.apache.kafka.common.header.internals.RecordHeader;

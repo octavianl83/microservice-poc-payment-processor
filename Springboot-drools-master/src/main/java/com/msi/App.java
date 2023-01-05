@@ -12,10 +12,10 @@ public class App {
 		SpringApplication.run(App.class, args);
 
 	}
-
-	@Bean
-	public KieContainer kieContainer() {
-		return KieServices.Factory.get().getKieClasspathContainer();
-	}
+//
+//	@Bean
+//	public KieContainer kieContainer() {
+//		return KieServices.Factory.get().getKieClasspathContainer();
+//	}
 
 }

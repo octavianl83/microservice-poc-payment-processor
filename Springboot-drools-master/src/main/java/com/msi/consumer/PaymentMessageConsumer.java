@@ -2,9 +2,9 @@ package com.msi.consumer;
 
 
 import com.msi.service.KafkaService;
-import com.msi.payment.PaymentMessage;
 import com.msi.service.PaymentMessageService;
 import lombok.extern.slf4j.Slf4j;
+import model.payment.PaymentMessage;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -32,8 +32,8 @@ public class PaymentMessageConsumer {
 
         PaymentMessage paymentMessage = paymentMessageService.processPaymentMessage(customerRecord);
 
-        if (paymentMessage.getMessageProcessStatus().getStatus().equals("SIMULATOR OK")) {
-
+        if (paymentMessage.getMessageProcessStatus().getRuleName().equals("NOT AVAILABLE")) {
+            log.info("Message not mathing any active rule. Discard it." + paymentMessage.toString());
         } else {
             kafkaService.kafkaSend(paymentMessage, paymentMessage.getMessageProcessStatus().getTopic());
         }

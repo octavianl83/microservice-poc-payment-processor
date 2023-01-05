@@ -11,7 +11,7 @@
         "volpay.rtp-transmit-ack.receive": "rtp-ack-receiver.grl"
     },
     "ExitPoints": {
-        "RTPSanctionTransform" : "volpay.sanctions.transform",
+        "SanctionsTransform" : "volpay.sanctions.transform",
         "SanctionsRequestInitiated": "volpay.sanctions.send",
         "AccountLookupRequestInitiated" : "volpay.accountlookup.send",
         "FundsControlTransform" : "volpay.rtptransmit.transform",
@@ -55,11 +55,11 @@
             "CommitOnComplete": false
         },
         "TransactionDupChecked" : {
-            "RuleSet": "sanctions-request.grl",
+            "RuleSet": "sanctions-transformed.grl",
             "CommitOnComplete": true
         },
         "SanctionsTransformed" : {
-            "RuleSet": "sanctions-transformed.grl",
+            "RuleSet": "sanctions-request.grl",
             "CommitOnComplete": true
         },
         "SanctionsReceived" : {
@@ -86,7 +86,7 @@
             "RuleSet": "rtp-transmit-transformed.grl",
             "CommitOnComplete": true
         },
-        "RTPTransmitTranformed" : {
+        "RTPTransmitTransformed" : {
             "RuleSet": "rtp-transmit.grl",
             "CommitOnComplete": true
         }

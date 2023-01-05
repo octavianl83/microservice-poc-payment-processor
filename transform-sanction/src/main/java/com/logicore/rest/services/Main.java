@@ -14,7 +14,7 @@ public class Main {
         paymentMessage.setSanctionTransform("transform-sanction-jar");
 
         String paymentMessageToStr = objectMapper.writeValueAsString(paymentMessage);
-        System.out.println(paymentMessageToStr.toString());
+        System.out.println(paymentMessageToStr);
 
     }
 }

@@ -1,6 +1,7 @@
 package com.logicore.rest.services.servicetransformation.flow;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import model.payment.PaymentMessage;
@@ -17,7 +18,7 @@ public class FlowAction {
         this.topic = topic;
     }
 
-    public Map<String, Object> process() throws IOException, InterruptedException {
+    public Map<String, Object> process() throws IOException, InterruptedException, URISyntaxException {
         String tenantId = paymentMessage.getTenant().getTenantId();
 
         //Load flow specific to the tennantId

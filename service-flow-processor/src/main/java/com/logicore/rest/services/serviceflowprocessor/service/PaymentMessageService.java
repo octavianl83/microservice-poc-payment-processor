@@ -17,7 +17,7 @@ public class PaymentMessageService {
 
     public PaymentMessage processPaymentMessage(ConsumerRecord<Integer, String> consumerRecord) throws JsonProcessingException {
         PaymentMessage paymentMessage = objectMapper.readValue(consumerRecord.value(), PaymentMessage.class);
-        log.debug("payment message: {}", paymentMessage);
+        log.info("payment message: {}", paymentMessage);
         save(paymentMessage);
         return paymentMessage;
     }
