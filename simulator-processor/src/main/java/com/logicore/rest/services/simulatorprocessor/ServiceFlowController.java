@@ -1,8 +1,8 @@
 package com.logicore.rest.services.simulatorprocessor;
 
 import com.logicore.rest.services.simulatorprocessor.flow.FlowAction;
-import com.logicore.rest.services.simulatorprocessor.model.payment.PaymentMessage;
 import com.logicore.rest.services.simulatorprocessor.service.KafkaService;
+import model.payment.PaymentMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -2,7 +2,7 @@ package com.logicore.rest.services.serviceflowprocessor.consumer;
 
 import com.logicore.rest.services.serviceflowprocessor.flow.FlowAction;
 import com.logicore.rest.services.serviceflowprocessor.flow.Selector;
-import com.logicore.rest.services.serviceflowprocessor.model.payment.PaymentMessage;
+import model.payment.PaymentMessage;
 import com.logicore.rest.services.serviceflowprocessor.service.KafkaService;
 import com.logicore.rest.services.serviceflowprocessor.service.PaymentMessageService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class FlowProcessorConsumer {
 
     private String ruleengineTopic = "ruleengine";
 
-    @KafkaListener(topics = {"volpay.instruction.receive", "volpay.sanctions.receive", "volpay.accountlookup.receive", "volpay.fundscontrol.receive", "volpay.rtp-accountposting.receive", "volpay.rtp-transmit-ack.receive"})
+    @KafkaListener(topics = {"volpay.instruction.receive", "volpay.sanctions.receive", "volpay.accountlookup.receive", "volpay.fundscontrol.receive", "volpay.rtp-accountposting.receive", "volpay.rtp-transmit-ack.receive", "volpay.sanctions.transformed", "volpay.rtptransmit.transformed", "volpay.fundscontrol.transformed"})
     public void onMessage(ConsumerRecord<Integer, String> customerRecord) throws IOException {
         log.debug("ConsumerRecord : {}", customerRecord);
         PaymentMessage paymentMessage = paymentMessageService.processPaymentMessage(customerRecord);

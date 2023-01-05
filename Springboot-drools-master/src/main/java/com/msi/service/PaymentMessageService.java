@@ -53,12 +53,16 @@ public class PaymentMessageService {
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("TransactionValidated")) {
 			paymentMessage.getMessageProcessStatus().setStatus("TransactionDupChecked");
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("TransactionDupChecked")) {
+			paymentMessage.getMessageProcessStatus().setStatus("SanctionsTransformed");
+		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("SanctionsTransformed")) {
 			paymentMessage.getMessageProcessStatus().setStatus("SanctionsRequestInitiated");
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("SanctionsRequestInitiated")) {
 			paymentMessage.getMessageProcessStatus().setStatus("AccountLookupRequestInitiated");
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("AccountLookupRequestInitiated")) {
 			paymentMessage.getMessageProcessStatus().setStatus("AccountLookupReceived");
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("AccountLookupReceived")) {
+			paymentMessage.getMessageProcessStatus().setStatus("FundsControlTransformed");
+		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("FundsControlTransformed")) {
 			paymentMessage.getMessageProcessStatus().setStatus("FundsControlRequestInitiated");
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("FundsControlRequestInitiated")) {
 			paymentMessage.getMessageProcessStatus().setStatus("FundsControlReceived");
@@ -69,6 +73,8 @@ public class PaymentMessageService {
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("RTPAccountPostingRequestInitiated")) {
 			paymentMessage.getMessageProcessStatus().setStatus("RtpAccountPostingReceived");
 		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("RtpAccountPostingReceived")) {
+			paymentMessage.getMessageProcessStatus().setStatus("RTPTransmitTranformed");
+		} else if (paymentMessage.getMessageProcessStatus().getStatus().equals("RTPTransmitTranformed")) {
 			paymentMessage.getMessageProcessStatus().setStatus("RTPTransmitInitiated");
 		}
 		return paymentMessage;

@@ -1,17 +1,23 @@
 {
     "EntryPoints": {
         "volpay.instruction.receive": "instruction-receiver.grl",
+        "volpay.sanctions.transformed": "sanctions-transform.grl",
         "volpay.sanctions.receive": "sanctions-receiver.grl",
         "volpay.accountlookup.receive": "accountlookup-receiver.grl",
+        "volpay.fundscontrol.transform": "volpay.fundscontrol.transformed.grl",
         "volpay.fundscontrol.receive": "fundscontrol-receiver.grl",
         "volpay.rtp-accountposting.receive": "rtp-accountposting-receiver.grl",
+        "volpay.rtptransmit.transformed": "rtp-ack-transform.grl",
         "volpay.rtp-transmit-ack.receive": "rtp-ack-receiver.grl"
     },
     "ExitPoints": {
+        "RTPSanctionTransform" : "volpay.sanctions.transform",
         "SanctionsRequestInitiated": "volpay.sanctions.send",
         "AccountLookupRequestInitiated" : "volpay.accountlookup.send",
+        "FundsControlTransform" : "volpay.rtptransmit.transform",
         "FundsControlRequestInitiated" : "volpay.fundscontrol.send",
         "RTPAccountPostingRequestInitiated" : "volpay.rtp-accountposting.send",
+        "RTPTransmitTransform" : "volpay.rtptransmit.transform",
         "RTPTransmitInitiated" : "volpay.rtp-transmit.send"
     },
     "CommitLogTopic" : "volpay.payment.commitlog",
@@ -52,13 +58,21 @@
             "RuleSet": "sanctions-request.grl",
             "CommitOnComplete": true
         },
+        "SanctionsTransformed" : {
+            "RuleSet": "sanctions-transformed.grl",
+            "CommitOnComplete": true
+        },
         "SanctionsReceived" : {
             "RuleSet": "accountlookup-request.grl",
             "CommitOnComplete": true
         },
         "AccountLookupReceived" : {
-            "RuleSet": "fundscontrol-request.grl",
+            "RuleSet": "fundscontrol-transform.grl",
             "CommitOnComplete": true
+        },
+        "FundsControlTransformed" : {
+            "RuleSet": "fundscontrol-request.grl",
+            "CommitOnComplete": false
         },
         "FundsControlReceived" : {
             "RuleSet": "mop-derivation.grl",
@@ -69,6 +83,10 @@
             "CommitOnComplete": true
         },
         "RtpAccountPostingReceived" : {
+            "RuleSet": "rtp-transmit-transformed.grl",
+            "CommitOnComplete": true
+        },
+        "RTPTransmitTranformed" : {
             "RuleSet": "rtp-transmit.grl",
             "CommitOnComplete": true
         }

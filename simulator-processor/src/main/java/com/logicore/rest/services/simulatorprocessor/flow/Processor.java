@@ -1,7 +1,7 @@
 package com.logicore.rest.services.simulatorprocessor.flow;
 
-import com.logicore.rest.services.simulatorprocessor.model.payment.ActionStatus;
-import com.logicore.rest.services.simulatorprocessor.model.payment.PaymentMessage;
+import model.payment.ActionStatus;
+import model.payment.PaymentMessage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;

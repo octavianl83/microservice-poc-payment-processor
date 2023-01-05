@@ -1,6 +1,6 @@
 package com.logicore.rest.services.serviceflowprocessor.flow;
 
-import com.logicore.rest.services.serviceflowprocessor.model.payment.PaymentMessage;
+import model.payment.PaymentMessage;
 
 import java.io.IOException;
 import java.util.HashMap;

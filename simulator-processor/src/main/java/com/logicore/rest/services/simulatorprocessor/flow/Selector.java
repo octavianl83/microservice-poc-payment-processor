@@ -1,7 +1,7 @@
 package com.logicore.rest.services.simulatorprocessor.flow;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.logicore.rest.services.simulatorprocessor.model.payment.PaymentMessage;
+import model.payment.PaymentMessage;
 
 import java.io.File;
 import java.io.IOException;

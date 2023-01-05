@@ -2,7 +2,7 @@ package com.logicore.rest.services.simulatorprocessor.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.logicore.rest.services.simulatorprocessor.model.payment.PaymentMessage;
+import model.payment.PaymentMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,8 @@ package com.logicore.rest.services.serviceflowprocessor;
 
 import com.logicore.rest.services.serviceflowprocessor.flow.FlowAction;
 import com.logicore.rest.services.serviceflowprocessor.flow.Selector;
-import com.logicore.rest.services.serviceflowprocessor.model.payment.PaymentMessage;
 import com.logicore.rest.services.serviceflowprocessor.service.KafkaService;
+import model.payment.PaymentMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
