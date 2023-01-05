@@ -21,9 +21,6 @@ import java.util.List;
 @Slf4j
 public class KafkaService {
 
-    @Value("${topics.send}")
-    private String SEND_TOPICS;
-
     @Autowired
     ObjectMapper objectMapper;
 
