@@ -22,8 +22,8 @@ public class ServiceFlowController {
     private String ruleengineTopic = "ruleengine";
 
     @Autowired
-    @Qualifier("localFlow")
-//    @Qualifier("DBFlow")
+//    @Qualifier("localFlow")
+    @Qualifier("DBFlow")
     private Selector selector;
 
     @PostMapping("/flow-processor")
