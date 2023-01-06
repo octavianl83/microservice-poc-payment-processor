@@ -2,11 +2,13 @@ package com.logicore.rest.services.simulatorprocessor.flow;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.payment.PaymentMessage;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-
+@EnableCaching
 public class Selector {
 
     private String tenant = null;
@@ -23,6 +25,7 @@ public class Selector {
         return "simulator-config".concat(".json");
     }
 
+    @Cacheable(value = "flows")
     public HashMap<String, Object> loadFlow() throws IOException {
         String fileName = createFlowName(this.tenant);
         File file = new File(this.getClass().getClassLoader().getResource(fileName).getFile());

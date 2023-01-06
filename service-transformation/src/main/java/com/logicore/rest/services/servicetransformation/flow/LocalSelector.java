@@ -2,6 +2,8 @@ package com.logicore.rest.services.servicetransformation.flow;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -10,6 +12,7 @@ import java.util.HashMap;
 
 @Slf4j
 @Component("localFlow")
+@EnableCaching
 public class LocalSelector implements Selector {
 
     public static void main(String[] args) throws IOException {
@@ -21,7 +24,7 @@ public class LocalSelector implements Selector {
     public String createFlowName(String tenantId) {
         return "transform-config".concat("-").concat(tenantId).concat(".json");
     }
-
+    @Cacheable(value = "flows")
     @Override
     public HashMap<String, Object> loadFlow(String tenantId) throws IOException {
         log.info("Loading transform config from file for tenant: " + tenantId);
