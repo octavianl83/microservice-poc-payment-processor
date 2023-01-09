@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+import com.logicore.rest.services.servicetransformation.paymenttransform.Transform;
 import model.payment.PaymentMessage;
 
 public class FlowAction {
@@ -12,10 +13,13 @@ public class FlowAction {
     String topic;
     private Selector selector;
 
-    public FlowAction(Selector selector, PaymentMessage paymentMessage, String topic) {
+    private Transform transform;
+
+    public FlowAction(Selector selector, PaymentMessage paymentMessage, String topic, Transform transform) {
         this.selector = selector;
         this.paymentMessage = paymentMessage;
         this.topic = topic;
+        this.transform = transform;
     }
 
     public Map<String, Object> process() throws IOException, InterruptedException, URISyntaxException {
@@ -26,7 +30,7 @@ public class FlowAction {
 
         //Map flow into an object
         Parser parser = new Parser(flowHashMap);
-        Processor processor = new Processor(parser, paymentMessage, topic);
+        Processor processor = new Processor(parser, paymentMessage, topic, transform);
         return processor.processLogic();
     }
 

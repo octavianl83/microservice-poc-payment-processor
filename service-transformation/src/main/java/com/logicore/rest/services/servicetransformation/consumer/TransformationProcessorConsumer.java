@@ -3,6 +3,7 @@ package com.logicore.rest.services.servicetransformation.consumer;
 
 import com.logicore.rest.services.servicetransformation.flow.FlowAction;
 import com.logicore.rest.services.servicetransformation.flow.Selector;
+import com.logicore.rest.services.servicetransformation.paymenttransform.Transform;
 import com.logicore.rest.services.servicetransformation.service.KafkaService;
 import com.logicore.rest.services.servicetransformation.service.PaymentMessageService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,8 @@ import java.util.Map;
 public class TransformationProcessorConsumer {
 
     @Autowired
+    Transform transform;
+    @Autowired
     KafkaService kafkaService;
     @Autowired
     private PaymentMessageService paymentMessageService;
@@ -35,7 +38,7 @@ public class TransformationProcessorConsumer {
         log.debug("ConsumerRecord : {}", customerRecord);
         PaymentMessage paymentMessage = paymentMessageService.transformPaymentMessage(customerRecord);
 
-        FlowAction flowAction = new FlowAction(selector, paymentMessage, customerRecord.topic());
+        FlowAction flowAction = new FlowAction(selector, paymentMessage, customerRecord.topic(), transform);
         Map<String, Object> actionMap = flowAction.process();
 
         kafkaService.kafkaSend((PaymentMessage) actionMap.get("message"), (String) actionMap.get("topic"));

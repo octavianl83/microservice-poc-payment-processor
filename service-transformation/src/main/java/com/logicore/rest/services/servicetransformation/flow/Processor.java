@@ -14,13 +14,15 @@ import java.util.Map;
 @Slf4j
 public class Processor {
 
+    Transform transformationEngine;
     private Parser parser;
     private PaymentMessage paymentMessage;
     private String topic;
-    public Processor(Parser parser, PaymentMessage paymentMessage, String topic) {
+    public Processor(Parser parser, PaymentMessage paymentMessage, String topic, Transform transform) {
         this.parser = parser;
         this.paymentMessage = paymentMessage;
         this.topic = topic;
+        this.transformationEngine = transform;
     }
 
     private LinkedHashMap<String, String> getEntryPoint() {
