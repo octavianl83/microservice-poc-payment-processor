@@ -1,6 +1,7 @@
 package com.logicore.rest.services.servicetransformation.flow;
 
 import com.logicore.rest.services.servicetransformation.paymenttransform.Transform;
+import com.logicore.rest.services.servicetransformation.paymenttransform.TransformJarImpl;
 import model.payment.ActionStatus;
 import model.payment.PaymentMessage;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +35,7 @@ public class Processor {
         String jarTransform = ruleNameEntry.get("Transform");
         String endPoint = ruleNameEntry.get("EndPoint");
 
-        Transform transformEngine = new Transform();
-        paymentMessage = transformEngine.transformPaymentMessage(jarTransform, paymentMessage);
+        paymentMessage = transformationEngine.transformPaymentMessage(jarTransform, paymentMessage);
         paymentMessage.getMessageProcessStatus().setActionStatus(ActionStatus.KAFKA);
         paymentMessage.getMessageProcessStatus().setStatus(ruleNameEntry.get("Status"));
         paymentMessage.getMessageProcessStatus().setTopic(ruleNameEntry.get("EndPoint"));

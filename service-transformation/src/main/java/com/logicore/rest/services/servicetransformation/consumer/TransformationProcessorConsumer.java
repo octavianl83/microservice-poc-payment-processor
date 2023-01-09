@@ -3,7 +3,7 @@ package com.logicore.rest.services.servicetransformation.consumer;
 
 import com.logicore.rest.services.servicetransformation.flow.FlowAction;
 import com.logicore.rest.services.servicetransformation.flow.Selector;
-import com.logicore.rest.services.servicetransformation.paymenttransform.Transform;
+import com.logicore.rest.services.servicetransformation.paymenttransform.TransformJarImpl;
 import com.logicore.rest.services.servicetransformation.service.KafkaService;
 import com.logicore.rest.services.servicetransformation.service.PaymentMessageService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +22,9 @@ import java.util.Map;
 @Slf4j
 public class TransformationProcessorConsumer {
 
+    @Qualifier("TransformJar")
     @Autowired
-    Transform transform;
+    TransformJarImpl transform;
     @Autowired
     KafkaService kafkaService;
     @Autowired
